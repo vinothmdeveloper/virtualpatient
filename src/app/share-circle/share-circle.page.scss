@@ -1,0 +1,63 @@
+.mblk {
+    width: 100%;
+    padding: 15px;
+    height: auto;
+    
+    // background-color: #045169;
+    &-row {
+        width: 100%;
+        margin-top: 20px;
+        .copy {
+            font-size: 30px;
+            color: var(--ion-color-swprimary);
+            background-color: var(--ion-color-swwhite);
+            display: block;
+            margin: 10px auto;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            // box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+            box-shadow: 2px -2px rgba(0, 0, 0, 0.2);
+            ion-icon {
+                margin-top: 10px;
+            }            
+        }
+        a {
+            padding: 10px;
+            text-decoration: none; 
+            text-align: center; 
+            background-color: #25D366;
+            display: block;
+
+            ion-icon {
+                font-weight: bolder;
+            }
+        }
+    }
+}
+
+.create-bg {
+    background-color: #C7E3F8;
+}
+
+h3 {
+    text-align: center;
+}
+
+
+.close {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    color: var(--ion-color-danger);
+    top: 5px;
+    right: 5px;
+}
+
+.errorclass {
+    color: var(--ion-color-danger);
+    font-size: 14px;
+}

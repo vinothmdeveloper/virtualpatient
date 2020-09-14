@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="318px" height="357px" viewBox="0 0 318 357" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="-1.77005739%" y1="84.8827291%" x2="93.3537466%" y2="22.1737757%" id="linearGradient-1">
+            <stop stop-color="#0059B3" offset="0%"></stop>
+            <stop stop-color="#00D4FF" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="87" height="87"></rect>
+        <linearGradient x1="39.0151986%" y1="52.7220303%" x2="63.2335115%" y2="46.2073178%" id="linearGradient-4">
+            <stop stop-color="#000000" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#000000" offset="49.2277818%"></stop>
+            <stop stop-color="#000000" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="37.4626696%" y1="-4.47377772%" x2="37.4626696%" y2="86.4667413%" id="linearGradient-5">
+            <stop stop-color="#00FF80" offset="0%"></stop>
+            <stop stop-color="#00B395" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Final" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon---Color" transform="translate(-111.000000, -92.000000)">
+            <g id="Group-2" transform="translate(111.000000, 92.000000)">
+                <g id="Group">
+                    <path d="M159.007668,208.596842 L159.007668,148.403158 C251.589593,142.908338 304.587037,129.440619 318,108 C311.384784,164.677093 258.38734,198.209374 159.007668,208.596842 Z M158.992332,148.403158 L158.992332,208.596842 C66.410407,214.091662 13.4129632,227.559381 5.68434189e-14,249 C6.61521599,192.322907 59.6126598,158.790626 158.992332,148.403158 Z" id="Combined-Shape" fill="url(#linearGradient-1)"></path>
+                    <g id="Combined-Shape" opacity="0.6" transform="translate(120.000000, 135.000000)">
+                        <mask id="mask-3" fill="white">
+                            <use xlink:href="#path-2"></use>
+                        </mask>
+                        <g id="Mask"></g>
+                        <path d="M40.53912,75.0089568 L40.53912,14.8150633 C134.166854,9.32022411 187.762959,-4.14754209 201.327436,-25.5882353 C194.637494,31.0890552 141.041389,64.6214526 40.53912,75.0089568 Z M40.5236098,14.8150633 L40.5236098,75.0089568 C-53.1041241,80.503796 -106.700229,93.9715622 -120.264706,115.412255 C-113.574764,58.7349649 -59.9786589,25.2025676 40.5236098,14.8150633 Z" fill="url(#linearGradient-4)" mask="url(#mask-3)"></path>
+                    </g>
+                    <path d="M189.163009,186.211658 L134.8409,170.772868 C153.478695,75.9560567 154.832293,19.0317673 138.901694,0 C188.364198,21.2110399 205.11797,83.2815926 189.163009,186.211658 Z M134.836991,170.788342 L189.1591,186.227132 C170.521305,281.043943 169.167707,337.968233 185.098306,357 C135.635802,335.78896 118.88203,273.718407 134.836991,170.788342 Z" id="Combined-Shape" fill="url(#linearGradient-5)" transform="translate(162.000000, 178.500000) scale(-1, 1) translate(-162.000000, -178.500000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

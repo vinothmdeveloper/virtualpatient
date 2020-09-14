@@ -1,0 +1,62 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+      <img src="{{authService.logo_url}}" height="24" style="vertical-align: middle; padding-left: 15px;">
+      <ion-title>Swasth</ion-title>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-icon name="notifications-outline" style="font-size: 26px; padding-right: 20px;"></ion-icon>
+      <ion-icon name="exit-outline" style="font-size: 26px;" (click)="logout()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col class="regis__heading">
+      <h1 *ngIf="ptDetail != undefined">Hi {{ptDetail.ptFirstName}}!</h1>
+      <h6>We found you some personalised networks of doctors you may like. Click on each network to learn more about the doctors in the network.</h6>
+    </ion-col>
+  </ion-row>
+  <ion-grid fixed>
+    <ion-row style="margin-top: 10px;" *ngIf="circleList != undefined">
+      <ion-col size="12" sizeMd="4" *ngFor="let cl of circleList">
+        <ion-card class="doc-card" (click)="showCircleDetail(cl)">
+          <div class="doc-card__full">
+            <div class="doc-card__full-logo">
+              <!-- <div style="width: 50px;height: 50px;background: #fff;border-radius: 50%; margin: auto;box-shadow: 1px 5px 10px #222"> -->
+                <ion-icon name="person-outline"></ion-icon>
+              <!-- </div> -->
+            </div>
+            <div class="doc-card__full-detail">
+              <div class="doc-card__full-detail-content">
+                <div>
+                  <ion-label class="doc-card__full-detail-content__title">{{cl.circleObj.circleName}}</ion-label>
+                </div>
+                <p>List of Specialities:</p>
+                <div class="doc-card__full-detail-content__spec">
+                  <ng-container *ngFor="let s of cl.circleSpecList">
+                    <ion-label>{{s.docSpec}}</ion-label>   
+                  </ng-container>
+                </div>
+              </div>
+              <div class="doc-card__full-detail-like">
+                <ion-icon name="thumbs-up-outline"></ion-icon>
+                <p>27</p>
+              </div>              
+            </div>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row style="position: static;bottom: 0px;width: 100%;">
+      <ion-col size="12" style="text-align: center;">
+        <ion-chip>
+          <p style="color: #0059b3;">Want more clinics</p>
+          <ion-icon name="refresh-outline" style="color: #0059b3;"></ion-icon>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

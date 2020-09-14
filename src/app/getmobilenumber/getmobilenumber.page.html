@@ -1,0 +1,55 @@
+<ion-row class="login-grid">
+  <ion-col size="12" sizeLg="8">
+    <div class="c-card">
+      <div class="login-logo">
+        <img src="{{authService.logo_url}}" class="login-logo__img">
+        <h1 class="login-logo__text">Sign Up to Swasth</h1>
+      </div>
+      <form #form="ngForm" (ngSubmit)="signup(form.value)" novalidate>
+        <ion-row>
+          <ion-col>
+            <label class="c-form__label" >Key: <span style="color:#f53d3d;">* Fields are mandatory</span></label>
+          </ion-col>
+        </ion-row>
+        <ion-row>  
+          <ion-col size="12" sizeMd="6">
+            <div class="c-form__field">
+              <label class="c-form__label" for="blood_group">Country Code<sup>*</sup></label>
+              <select class="c-form__select" name="ptBloodGroup" ngModel #ptBloodGroup="ngModel" [class.invalid]="ptBloodGroup.errors?.required && ptBloodGroup.dirty">
+                <option disabled>--Select--</option>
+                <option value="93">Afghanistan</option>
+                <option value="355">Albania</option>
+                <option value="213">Algeria</option>
+                <option value="1-684">American Samoa</option>
+                <option value="376">Andorra</option>
+                <option value="244">Angola</option>
+                <option value="1-264">Anguilla</option>
+                <option value="672">Antarctica</option>
+              </select>
+              <ion-item class="error-message" *ngIf="ptBloodGroup.errors?.required && ptBloodGroup.dirty">
+                Blood Group is required
+              </ion-item>
+            </div>
+          </ion-col>        
+          <ion-col size="12" sizeMd="6">
+            <div class="c-form__field">
+              <label class="c-form__label" for="dob">Mobile Number<sup>*</sup></label>
+              <input type="text" class="c-form__input" name="ptDob"  ngModel required #ptDob="ngModel"
+                [class.invalid]="ptDob.errors && ptDob.dirty" (change)="getAge(ptDob.value)">
+              <ion-item class="error-message" *ngIf="ptDob.errors?.required && ptDob.dirty">
+                Date of birth is required
+              </ion-item>   
+            </div>
+          </ion-col>
+          
+          
+          <ion-col size="12">
+            <div class="c-form__field">
+              <ion-button type="submit" [disabled]="!form.valid">Verify</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </form>
+    </div>    
+  </ion-col>
+</ion-row>

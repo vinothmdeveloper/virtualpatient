@@ -1,0 +1,320 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+$ionicons-font-path: "~ionicons/dist/fonts";
+// @import "~ionicons/dist/scss/ionicons.scss";
+@font-face {
+    font-family: 'Muli-Regular';
+    src: url('../src/assets/fonts/Muli-Regular.ttf');
+}
+$font-heading: 'Muli-Regular', sans-serif;
+$font-body: 'Roboto', sans-serif;
+
+ion-title {
+    font-size: 22px;
+    font-weight: 500;
+    font-family: $font-heading;
+    padding: 0px 10px;
+}
+
+.login-grid {
+    height: 100%;
+    align-items:center;
+    justify-content:center;
+}
+
+.login-c-card {
+    margin-top: 120px;
+    margin-bottom: 20px;
+    padding: 15px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    border-radius: 15px;
+    > *:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.login-logo {
+    margin-bottom: 5px;
+    margin-top: 50px;
+    text-align: center;
+    // border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    &__img {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 1px solid #e5e5e5;
+        position: absolute;
+        margin-top: -119px;
+        margin-left: -49px;
+        background-color: #fff;
+        padding: 10px;
+    }
+    &__text {
+        font-size: 20px;
+        font-weight: 500;
+        font-family: $font-heading;
+        color: #222;
+    }
+}
+
+.login-paragraph {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    &__text {
+        font-size: 14px;
+        color: #222;
+    }
+    &__link {
+        display: inline-block;
+        font-size: 14px;
+        padding-left: 3px;
+        text-decoration: underline;
+        color: #0059b3;
+    }
+    &__remember {
+        font-size: 14px;
+        color: #222;
+        text-align: start;
+    }
+}
+
+.c-form {
+    &__label {
+        margin-bottom: 5px;
+        font-family: $font-body;
+        color: #222;
+        font-size: 14px;
+        margin-top: 9px;
+        sup{
+            color: danger;
+        }
+        &-2{
+            width: 50%;
+        }
+        &-3{
+            width: 38%;
+        }
+        &-4{
+            width: 100%;
+        }
+        &-5 {
+            width: 30%;
+            color: #222;
+        }
+    }
+    &__radio {
+        vertical-align: middle;
+        margin-right: 4px;
+    }
+    &__field{
+        position: relative;
+        width: 100%;
+        margin-bottom: 5px;
+        padding-right: 5px;
+        padding-top: 5px;
+    }
+    &__input {
+        padding: 10px;
+        display: block;
+        width: 100%;
+        border-radius: 4px;
+        background-color: #F0F2F5;
+        color: #222;
+        font-family: $font-body; 
+        border: 1px solid #e4e4e4;
+        min-height: 40px;
+        margin-bottom: 5px;
+        text-transform: initial;
+    }
+    &__select {
+        padding: 10px;
+        padding-right: 30px;
+        display: block;
+        width: 100%;
+        border-radius: 4px;
+        --background: var(--ion-color-primary-bg);
+        color: #222;
+        font-family: $font-body;
+        border: 1px solid #e4e4e4;
+        /* appearance: none;
+        -webkit-appearance: none; */
+        outline: 0!important;
+        
+    }
+    &__date {
+        font-size: 14px;
+        color: #222;
+        font-family: $font-body;
+        border: none;
+        width: 100%;
+        padding: 10px;
+        --background: var(--ion-color-primary-bg);
+        -webkit-appearance: none;
+        appearance: none;
+        min-height: 40px;
+    }    
+}
+.c-list {
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    // --background: var(--ion-color-primary-bg);
+    &__item {
+        position: relative;
+        padding: 10px;
+        width: 100%;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        outline: none;
+        text-decoration: none;
+    }
+    &__label {
+        font-size: 14px;
+        color: #222222;
+        font-family: $font-body;
+    }
+    &__input {
+        font-size: 14px;
+        color: #919191;
+        font-family: $font-body;
+        border: none;
+        width: 100%;
+        padding-left: 5px;
+        margin-top: 6px;
+        // --background: var(--ion-color-primary-bg);
+    }
+    &__title {
+        font-size: 16px;
+        font-weight: 400;
+        font-family: $font-heading;
+        color: #222;
+    }
+    &__title-item {
+        padding: 10px;
+        &--primary {
+            background-color: #e6f2ff;
+        }
+        &--secondary {
+            background-color: #D1E2A9;
+        }
+        &--danger {
+            background-color: #fff4f4;
+        }
+    }
+    &__title-icon {
+        margin-right: 10px;
+        font-size: 18px;
+    }
+    &__content {
+        font-size: 14px;
+        color: #919191;
+        font-family: $font-body;
+    }
+    &__input {
+        font-size: 14px;
+        color: #919191;
+        font-family: $font-body;
+        border: none;
+        width: 100%;
+        padding: 0;
+        background-color: #fff;
+    }
+    &__date {
+        font-size: 14px;
+        color: #919191;
+        font-family: $font-body;
+        border: none;
+        width: 100%;
+        padding: 0;
+        background-color: #fff;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 16px;
+    }
+}
+
+.text-primary {
+    color: #0059b3;
+}
+.text-danger {
+    color: #f53d3d;
+}
+.text-secondary {
+    color: #00b395;
+}
+.static {
+    position: static;
+}
+
+.c-button {
+    display: block;
+    // --background: var(--ion-color-primary-bg);
+    color: #222;
+    text-align: center;
+    padding: 10px;
+    appearance: none;
+    -webkit-appearance: none;
+    font-size: 14px;
+    border-radius: 4px;
+    min-height: 40px;
+    font-family: $font-body;
+    &--fullwidth {
+        width: 100%;
+    }
+    &--primary {
+        color: #fff;
+        background: #0059b3;
+    }
+    &--light {
+        color: #0059b3;
+        background: #e6f2ff;
+    }
+}
+
+.btn{
+    border-radius: 4px;    
+    --transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1), background-color 15ms linear, color 15ms linear;    
+    margin-bottom: 10px;
+    height: 36px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: var(--ion-font-body);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;    
+    --background-hover: #ffffff;
+    --background-focused: #ffffff;
+    --background-activated-opacity: 0;
+    --background-focused-opacity: 0.24;
+    --background-hover-opacity: 0.08;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+.btn-full {
+    width: 100%;
+}

@@ -1,0 +1,331 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <img src="{{authService.logo_url}}" height="24" style="vertical-align: middle; padding-left: 15px;">
+      <ion-title>Swasth</ion-title>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-icon name="notifications-outline" style="font-size: 26px; padding-right: 20px;"></ion-icon>
+      <ion-icon name="exit-outline" style="font-size: 26px;" (click)="logout()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="alert alert--warning" *ngIf="edit">
+    <ion-grid fixed>
+      <ion-row align-items-center>
+        <ion-col size="12">
+          <p class="alert__content"><strong>Editing Mode is Activated</strong> - Now you can edit fields by tapping.</p>          
+        </ion-col>        
+      </ion-row>
+    </ion-grid>
+  </div>
+  
+  <section class="grid-heading" [ngStyle]="{'background-image': 'url('+background+')'}">
+    <ion-grid padding fixed class="grid-heading-container">      
+      <ion-row align-items-center>
+        <ion-col size="12" sizeMd="6" class="static">
+          <div class="profile">
+            <div class="profile__pic">
+              <div class="profile__block">
+                <h3 class="profile__letter">{{userFirstLetter}}</h3>
+                <ion-icon name="checkmark" class="profile__verified-icon"></ion-icon>
+              </div>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size="12" size="6" class="static">                    
+          <div class="edit">
+            <!-- <p class="edit__button" (click)="addFamilyMember()" *ngIf="userdetail.accountType=='Family'"><ion-icon name="person-add" class="edit__icon"></ion-icon>Add Family Member</p> -->
+            <p class="edit__button" (click)="toggleEdit()" *ngIf="!edit"><ion-icon name="create" class="edit__icon"></ion-icon> Edit Profile</p>
+            <p class="edit__button" (click)="toggleEdit()" *ngIf="edit"><ion-icon name="close" class="edit__icon"></ion-icon> Cancel Editing</p>            
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+  <ion-grid class="profile-grid" fixed>
+    <ion-row>
+      <ion-col size="12" sizeMd="4" sizeLg="3" padding>
+        <div class="profile">
+          <h2 class="profile__title" *ngIf="profile.ptLastName!=null">{{profile.ptFirstName}} {{profile.ptLastName}}</h2>
+          <h2 class="profile__title" *ngIf="profile.ptLastName==null">{{profile.ptFirstName}}</h2>
+          <p class="profile__meta">UID: {{profile.userID}}<br>{{age1}} years / {{profile.ptGender}}</p>
+        </div>
+        <div class="mobile-edit">
+          <a href="#" class="mobile-edit__button" (click)="toggleEdit()" *ngIf="!edit"><ion-icon name="create" class="mobile-edit__icon"></ion-icon> Edit Profile</a>
+          <a href="#" class="mobile-edit__button" (click)="toggleEdit()" *ngIf="edit"><ion-icon name="close" class="mobile-edit__icon"></ion-icon> Cancel Editing</a>
+        </div>
+      </ion-col>
+        <ion-col size="12" sizeMd="8" sizeLg="9" padding>
+          <form #updateForm="ngForm" (ngSubmit)="update(updateForm.value)" validate>
+            <ion-row justify-content-center>
+              <ion-col col-12>
+                <div class="c-list" style="border-radius: 15px;">
+                <div class="c-list__title-item c-list__title-item--primary" style=" border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                  <ion-row>
+                    <ion-col col-12>
+                      <h3 class="c-list__title text-primary" style="margin: 0px;"><ion-icon name="person" class="c-list__title-icon"></ion-icon> Personal Info</h3>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">DOB:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit"> {{ profile.ptDob | date: 'dd/MM/yyyy' }}</label>
+                      <ion-icon name="md-calendar" class="c-list__field-icon" *ngIf="!edit"></ion-icon>
+                      <!-- <input type="date" name="profile.ptDob" class="c-list__date" *ngIf="edit" [(ngModel)]="profile.ptDob" #profile.ptDob="ngModel" required [class.invalid]="profile.ptDob.errors && profile.ptDob.dirty" (change)="getAge(profile.ptDob)">
+                      <ion-item class="error-message" *ngIf="profile.ptDob.errors?.required && profile.ptDob.dirty">
+                        Date of birth is required
+                      </ion-item>  -->
+                    </ion-col>
+                  </ion-row>  
+                </div>                                
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">Mobile No:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ profile.ptMobileNo }}</label>
+                      <input type="number" name="ptMobileno" class="c-list__input" [(ngModel)]="profile.ptMobileNo" #ptMobileno="ngModel" *ngIf="edit" [class.invalid]="ptMobileno.errors && ptMobileno.dirty" [pattern]="mobnumPattern" required>
+                      <!-- <ion-item class="error-message" *ngIf="ptMobileno.errors?.required && ptMobileno.dirty">
+                        Mobile Number is required
+                      </ion-item>
+                      <div *ngIf="ptMobileno.errors && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                        <ion-item *ngIf="ptMobileno.errors.pattern" class="error-message"> 
+                          Mobile number not valid.
+                        </ion-item>  
+                      </div> -->
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">Email:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ profile.ptEmailID }}</label>
+                      <input type="email" name="ptEmailid" class="c-list__input"   [(ngModel)]="profile.ptEmailID" #ptEmailid="ngModel" [class.invalid]="ptEmailid.errors && ptEmailid.dirty" email *ngIf="edit">
+                      <!-- <ion-item class="error-message" *ngIf="ptEmailid.errors?.required && ptEmailid.dirty">
+                        Email Id is required
+                      </ion-item> -->
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">Blood Group:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ profile.ptBloodGroup }}</label>
+                      <ion-icon name="ios-arrow-down" class="c-list__field-icon" *ngIf="edit"></ion-icon>
+                      <select class="c-list__select" name="profile.ptBloodGroup" [(ngModel)]="profile.ptBloodGroup" #profile.ptBloodGroup="ngModel" *ngIf="edit">
+                        <option disabled>--Select--</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                      </select>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">Country:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ profile.ptCountry }}</label>
+                      <!--<input type="text" name="profile.ptCountry" class="c-list__input" [(ngModel)]="profile.ptCountry" #profile.ptCountry="ngModel" *ngIf="edit"> -->
+                      <ion-icon name="ios-arrow-down" class="c-list__field-icon" *ngIf="edit"></ion-icon>
+                      <select class="c-list__select" name="profile.ptCountry" [(ngModel)]="profile.ptCountry" #profile.ptCountry="ngModel" *ngIf="edit">
+                        <option disabled>--Select--</option>
+                        <option>India</option>
+                        <option>Bangladesh</option>
+                        <option>Brazil</option>
+                        <option>China</option>
+                        <option>France</option>
+                        <option>Japan</option>
+                        <option>Kuwait</option>
+                        <option>United Kingdom</option>
+                        <option>United States</option>
+                      </select>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">Allergies:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ profile.ptAllergies }}</label>
+                      <input type="text" name="profile.ptAllergies" class="c-list__input" [(ngModel)]="profile.ptAllergies" #profile.ptAllergies="ngModel" *ngIf="edit">
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </div>
+              <div class="c-list" *ngIf="ptAddress!=undefined && ptAddress!=null">
+                <div class="c-list__title-item c-list__title-item--primary">
+                  <ion-row>
+                    <ion-col size="12">
+                      <h3 class="c-list__title text-primary"><ion-icon name="pin" class="c-list__title-icon"></ion-icon> Address</h3>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">Address Line1:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ ptAddress.addressLine1 }}</label>
+                      <input type="text" class="c-list__input" name="ptAddress.addressLine1" [(ngModel)]="ptAddress.addressLine1" #ptAddress.addressLine1="ngModel" *ngIf="edit" >
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">Address Line2:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ ptAddress.addressLine2 }}</label>
+                      <input type="text" class="c-list__input" name="ptAddress.addressLine2" [(ngModel)]="ptAddress.addressLine2" #ptAddress.addressLine2="ngModel" *ngIf="edit" >
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">City:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ ptAddress.City }}</label>
+                      <input type="text" class="c-list__input" name="ptAddress.City" [(ngModel)]="ptAddress.City" #ptAddress.City="ngModel" *ngIf="edit" >
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">State:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ ptAddress.state }}</label>
+                      <input type="text" class="c-list__input" name="ptAddress.state" [(ngModel)]="ptAddress.state" #ptAddress.state="ngModel" *ngIf="edit" >
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">Postal Code:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ ptAddress.postalCode }}</label>
+                      <input type="text" class="c-list__input" name="ptAddress.postalCode" [(ngModel)]="ptAddress.postalCode" #ptAddress.postalCode="ngModel" *ngIf="edit" >
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </div>
+
+              <div class="c-list" style="border-radius: 15px;">
+                <div class="c-list__title-item c-list__title-item--danger" style=" border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                  <ion-row>
+                    <ion-col size="12">
+                      <h3 class="c-list__title text-danger" style="margin: 0px;"><ion-icon name="call" class="c-list__title-icon"></ion-icon> Emergency Contact</h3>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">Name:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ profile.ptEmergencyContactName }}</label>
+                      <input type="text" class="c-list__input" name="profile.ptEmergencyContactName" [(ngModel)]="profile.ptEmergencyContactName" #profile.ptEmergencyContactName="ngModel" *ngIf="edit" required>
+                    </ion-col>
+                  </ion-row>
+                </div>
+                
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">Relationship:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ profile.ptEmergencyRelationship }}</label>
+                      <input type="text" class="c-list__input" name="profile.ptEmergencyRelationship" [(ngModel)]="profile.ptEmergencyRelationship" #profile.ptEmergencyRelationship="ngModel" *ngIf="edit">
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">Mobile No.:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ profile.ptEmergencyContactNo }}</label>
+                      <input type="text" class="c-list__input" name="ptEmergencyContactno" [(ngModel)]="profile.ptEmergencyContactNo" #ptEmergencyContactno="ngModel" *ngIf="edit" [class.invalid]="ptEmergencyContactno.errors && ptEmergencyContactno.dirty" [pattern]="mobnumPattern">
+                      <!-- <ion-item class="error-message" *ngIf="ptEmergencyContactno.errors?.required && ptEmergencyContactno.dirty">
+                        Mobile Number is required
+                      </ion-item>
+                      <div *ngIf="ptEmergencyContactno.errors && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                        <ion-item *ngIf="ptEmergencyContactno.errors.pattern" class="error-message"> 
+                          Mobile number not valid.
+                        </ion-item>  
+                      </div> -->
+                    </ion-col>
+                  </ion-row>
+                </div>
+                <div class="c-list__item">
+                  <ion-row>
+                    <ion-col sizeSm="3">
+                      <label class="c-list__label">Email ID:</label>
+                    </ion-col>
+                    <ion-col sizeSm="9">
+                      <label class="c-list__content" *ngIf="!edit">{{ profile.ptEmergencyEmailID }}</label>
+                      <input type="email" class="c-list__input" name="ptEmergencyEmailid" [(ngModel)]="profile.ptEmergencyEmailID" #ptEmergencyEmailid="ngModel" [class.invalid]="ptEmergencyEmailid.errors && ptEmergencyEmailid.dirty" email *ngIf="edit">
+                      <!-- <ion-item class="error-message" *ngIf="ptEmergencyEmailid.errors?.required && ptEmergencyEmailid.dirty">
+                        Email Id is required
+                      </ion-item> -->
+                    </ion-col>
+                  </ion-row>
+                </div>
+              </div>
+            </ion-col>
+            <ion-col sizeSm="12" *ngIf="this.edit">
+              <button type="submit" class="c-button c-button--primary c-button--fullwidth" [disabled]="!updateForm.valid">Update Profile</button>
+            </ion-col>
+          </ion-row>
+          <ion-row justify-content-end>
+            <ion-col sizeMd="3" *ngIf="accountBtn && !edit">
+              <p class="c-button c-button--primary" style="margin-right:10px;" (click)="changePass()">Change Password</p>
+            </ion-col>
+            <ion-col sizeMd="3" *ngIf="!accountBtn && !edit">
+              <p class="c-button c-button--primary" style="margin-right:7px;" (click)="separateAccount()">Separate Account</p>
+            </ion-col>
+            <ion-col sizeMd="3" *ngIf="!edit">
+              <p class="c-button c-button--primary" style="margin-right:7px;" (click)="DeactivateAccount()">Deactivate Account</p>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

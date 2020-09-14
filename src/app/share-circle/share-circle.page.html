@@ -1,0 +1,28 @@
+<ion-content>
+  
+  <div class="mblk create-bg">
+    <ion-icon name="close-circle-sharp" class="close" (click)="close()"></ion-icon>
+    <h3>Share Circle To Patient</h3>
+    <div class="mblk-row">
+      <div class="c-form__field" style="padding-right: 0; font-size: 16px;text-align: center;">
+        <label class="c-form__label" for="circleName">{{sendTxt}}</label>
+        <div class="copy">
+          <ion-icon name="copy" title="Copy circle Code and Password" (click)="copyCodePass()" ></ion-icon>
+        </div>        
+      </div>
+      <div class="c-form__field" style="padding-right: 0;">
+        <label class="c-form__label" for="circleName">Enter the Doctor mobile number to share cirlce name via WhatsApp</label>
+        <select class="c-form__input" style="margin-top: 10px;"  name="countryCode" [(ngModel)]="countryCode" (change)="countryCodeChange()">
+          <option>--select country code--</option>
+          <option *ngFor="let c of countryCodeList" [value]="c.countryCode">{{c.countryCode}} ({{c.countryName}})</option>
+        </select> 
+        <input type="text" class="c-form__input" style="margin-top: 10px;" name="docNumber" [(ngModel)]="docNumber" (change)="mobileNoChange($event)" (keypress)="codeShareLink($event)" (keyup)="numberOnly($event)" placeholder="Enter the mobile number">      
+        <span *ngIf="mobileNumber.invalid" class="errorclass">{{mobileNumber.msg}}</span>
+      </div>
+      <div class="mblk-row">
+        <a href="{{whatsappLink}}" *ngIf="sendStatus && countryCodeStatus"class="btn btn-full" target="blank" title="code share via whatsapp">Send To WhatsApp <ion-icon name="logo-whatsapp"></ion-icon></a>
+        <button type="button" class="btn btn-full" style="background-color: #c2c2c2;color: #666666;" title="code share via whatsapp" *ngIf="!sendStatus"> Send To WhatsApp <ion-icon name="logo-whatsapp"></ion-icon></button>
+      </div>
+    </div>
+  </div>
+</ion-content>

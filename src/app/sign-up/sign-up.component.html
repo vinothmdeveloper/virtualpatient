@@ -1,0 +1,156 @@
+<ion-row class="login-grid">
+  <ion-col size="12" sizeLg="8">
+    <div class="c-card">
+      <div class="login-logo">
+        <img src="{{authService.logo_url}}" class="login-logo__img">
+        <h1 class="login-logo__text">Sign Up to Swasth</h1>
+      </div>
+      <form #form="ngForm" (ngSubmit)="signup(form.value)" novalidate>
+        <ion-row>
+          <ion-col>
+            <label class="c-form__label" >Key: <span style="color:#f53d3d;">* Fields are mandatory</span></label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12" sizeMd="6">
+            <div class="c-form__field">
+              <label class="c-form__label" for="first_name">First Name<sup>*</sup></label>
+              <input type="text" class="c-form__input" name="ptFirstName" ngModel required #ptFirstName="ngModel"
+                [class.invalid]="ptFirstName.errors && ptFirstName.dirty">
+              <ion-item class="error-message" *ngIf="ptFirstName.errors?.required && ptFirstName.dirty">
+                First Name is required
+              </ion-item>
+            </div>
+          </ion-col>
+          <ion-col size="12" sizeMd="6">
+            <div class="c-form__field">
+              <label class="c-form__label" for="last_name">Last Name<sup>*</sup></label>
+              <input type="text" class="c-form__input" name="ptLastName" ngModel required #ptLastName="ngModel"
+                [class.invalid]="ptLastName.errors && ptLastName.dirty">
+              <ion-item class="error-message" *ngIf="ptLastName.errors?.required && ptLastName.dirty">
+                Last Name is required
+              </ion-item>
+            </div>
+          </ion-col>
+          <ion-col size="12" sizeMd="6">
+            <div class="c-form__field">
+              <label class="c-form__label" for="dob">DOB<sup>*</sup></label>
+              <input type="date" class="c-form__input" name="ptDob" displayFormat="DD/MM/YYYY" ngModel required #ptDob="ngModel"
+                [class.invalid]="ptDob.errors && ptDob.dirty" (change)="getAge(ptDob.value)">
+              <ion-item class="error-message" *ngIf="ptDob.errors?.required && ptDob.dirty">
+                Date of birth is required
+              </ion-item>   
+            </div>
+          </ion-col>
+          <ion-col size="12" sizeMd="6">
+            <div class="c-form__field">
+              <label class="c-form__label" for="last_name">Email<sup>*</sup></label>
+              <input type="text" class="c-form__input" name="ptEmailID" ngModel required #ptEmailID="ngModel"
+                [class.invalid]="ptEmailID.errors && ptEmailID.dirty">
+              <ion-item class="error-message" *ngIf="ptEmailID.errors?.required && ptEmailID.dirty">
+                Email Id is required
+              </ion-item>
+            </div>
+          </ion-col>
+          <!-- <ion-col size="12" sizeMd="6">
+            <div class="c-form__field">
+              <label class="c-form__label" for="blood_group">Blood Group</label>
+              <select class="c-form__select" name="ptBloodGroup" ngModel #ptBloodGroup="ngModel" [class.invalid]="ptBloodGroup.errors?.required && ptBloodGroup.dirty">
+                <option disabled>--Select--</option>
+                <option>O+</option>
+                <option>O-</option>
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+              </select>
+              <ion-item class="error-message" *ngIf="ptBloodGroup.errors?.required && ptBloodGroup.dirty">
+                Blood Group is required
+              </ion-item>
+            </div>
+          </ion-col> -->
+          <ion-col size="12" sizeMd="6">
+            <div class="c-form__field">
+              <label class="c-form__label">Sex<sup>*</sup></label>
+            </div>
+            <ion-list radio-group class="gender-list">
+              <ion-row>
+                <ion-col size size-md padding-right>
+                  <div class="c-form__field">
+                    <label class="c-form__label"><input type="radio" name="ptGender" ngModel required #ptGender="ngModel" class="c-form__radio" value="Male"> Male</label>
+                  </div>
+                </ion-col>
+                <ion-col size size-md padding-right>
+                  <div class="c-form__field">
+                    <label class="c-form__label"><input type="radio" name="ptGender" ngModel required #ptGender="ngModel" class="c-form__radio" value="Female"> Female</label>
+                  </div>
+                </ion-col>
+                <ion-col size size-md  padding-right>
+                  <div class="c-form__field">
+                    <label class="c-form__label"><input type="radio" name="ptGender" ngModel required #ptGender="ngModel" class="c-form__radio" value="Others"> Others</label>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-list>
+            <ion-item class="error-message" *ngIf="ptGender.errors?.required && ptGender.dirty">
+              Gender is required
+            </ion-item>
+          </ion-col>
+        
+          <ion-col size="12" sizeMd="6">
+            <div class="c-form__field">
+              <label class="c-form__label" for="pt_mobile_no">Mobile<sup>*</sup></label>
+              <input type="number" class="c-form__input" class="c-form__input"  name="ptMobileNo" ngModel required="" #ptMobileNo="ngModel" [class.invalid]="ptMobileNo.errors && ptMobileNo.dirty" [pattern]="mobnumPattern">
+              <ion-item class="error-message" *ngIf="ptMobileNo.errors?.required && ptMobileNo.dirty">
+                Mobile Number is required
+              </ion-item>
+              <div *ngIf="ptMobileNo.errors && !isValidFormSubmitted" [ngClass] = "'error'"> 
+                <ion-item *ngIf="ptMobileNo.errors.pattern" class="error-message"> 
+                Mobile number not valid.
+                </ion-item>  
+              </div>
+            </div>
+          </ion-col>
+
+          <ion-col size="12" sizeMd="6">
+            <div class="c-form__field">
+              <label class="c-form__label" for="password" >Password<sup>*</sup></label>
+              <input type="password" class="c-form__input" name="password" ngModel required #password="ngModel"
+                [class.invalid]="password.errors && password.dirty" (blur)="checkPassword(pt_confirm_password.value,password.value)">
+              <ion-item class="error-message" *ngIf="password.errors?.required && password.dirty">
+                Password is required
+              </ion-item>
+            </div>
+          </ion-col>
+          <ion-col size="12" sizeMd="6">
+            <div class="c-form__field">
+              <label class="c-form__label" for="pt_confirm_password">Confirm Password<sup>*</sup></label>
+              <input type="password" class="c-form__input" class="c-form__input" name="pt_confirm_password" 
+                ngModel required #pt_confirm_password="ngModel" [class.invalid]="pt_confirm_password.errors && pt_confirm_password.dirty" (blur)="checkPassword(pt_confirm_password.value,password.value)">
+              <ion-item class="error-message" *ngIf="pt_confirm_password.errors?.required && pt_confirm_password.dirty">
+                Confirm Password is required
+              </ion-item>
+              <ion-item class="error-message" *ngIf="!ConfirmPassword">
+                Password Mismatch 
+              </ion-item>
+            </div>
+          </ion-col>
+          <ion-col size="12">
+            <div class="c-form__field">
+              <ion-button type="submit" [disabled]="!form.valid">Create an Account</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </form>
+    </div>
+    <div class="login-paragraph">
+      <div class="login-paragraph__text">
+        Already have an account? <a (click)="linkLogin()" class="login-paragraph__link">Login</a>
+      </div>
+    </div>
+  </ion-col>
+</ion-row>
+
+

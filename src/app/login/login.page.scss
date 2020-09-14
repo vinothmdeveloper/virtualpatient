@@ -1,0 +1,30 @@
+$font-heading: 'Muli', sans-serif;
+$font-body: 'Roboto', sans-serif;
+
+ion-content {
+    // --background: var(--ion-color-primary-bg);
+    --ion-background-color: linear-gradient(120deg, #00b3ea, #00db89);
+}
+.welcome {
+    margin-top: 130px;
+    margin-bottom: 100px;
+    text-align: center;
+    h1{
+        text-align: center;
+        color: #fff;
+        text-shadow: 1px 1px 3px #000000;
+    }
+    h5 {
+        padding: 15px;
+        color: #222222;
+    }
+    &-logo {
+        display: inline-block;
+        &__img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            
+        }
+    }
+}

@@ -1,0 +1,136 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <img src="{{authService.logo_url}}" height="24" style="vertical-align: middle; padding-left: 15px;">
+      <ion-title>Swasth</ion-title>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-icon name="notifications-outline" style="font-size: 26px; padding-right: 20px;"></ion-icon>
+      <ion-icon name="exit-outline" style="font-size: 26px;" (click)="logout()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col class="regis__heading">
+      <div style="position: absolute;right: 15px;top: 13px;width: 50px;height: 50px;background: #fff;border-radius: 50%;box-shadow: 1px 5px 10px #222">
+        <h3>{{ptFirstLetter}}</h3>
+        <!-- <h3>J</h3> -->
+      </div>
+      <h5>Find a personalised network of doctors you can contact at any time and anywhere.</h5>
+    </ion-col>
+  </ion-row>
+  <ion-row style="margin-top: 40px;">
+    <ion-col size="12" sizeMd="8" offsetMd="2">
+      <div class="plan">
+        <ion-card class="plan__card" (click)="selectDocList()">
+          <ion-card-content>
+            <ion-card-title>Choose 3-5 specialities you would like to have as your personalised network of doctors.</ion-card-title>
+            <ion-card-subtitle>Select a Family Physician (compulsory) and other specialities you would like to have as part of your network.</ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+        <div class="spec" *ngIf="docSelectionStatus">
+          <div class="spec__selected">
+            <ion-label class="spec__subtitle">Specialization:</ion-label>
+            <ng-container *ngIf="selectedSpecListArray.length>=1">
+              <div class="spec__selected-list">
+                <ng-container *ngFor="let ssa of selectedSpecListArray">
+                  <ion-chip (click)="removeSpec">
+                    <ion-label>{{ssa}}</ion-label>
+                    <ion-icon name="close-circle-outline"></ion-icon>
+                  </ion-chip>
+                </ng-container>
+              </div>       
+            </ng-container>
+          </div>
+              
+          <ion-card>
+            <ion-card-content>              
+              <div class="spec__list">
+                <div class="spec__list-left">
+                  <ng-container *ngFor="let sp of docSpecialization.slice(0,13); let i=index">
+                    <ion-list>
+                      <div style="display: flex;">
+                        <ion-checkbox color="primary" value="{{sp.specialisationName}}" (ionChange)="selectSpec($event)"></ion-checkbox>
+                        <ion-label>{{sp.specialisationName}}</ion-label>
+                      </div>
+                    </ion-list>
+                  </ng-container>
+                </div>
+                <div class="spec__list-right">
+                  <ng-container *ngFor="let sp of docSpecialization.slice(13, docSpecialization.length); let i=index">
+                    <ion-list>
+                      <div style="display: flex;">
+                        <ion-checkbox color="primary" value="{{sp.specialisationName}}" (ionChange)="selectSpec($event)"></ion-checkbox>
+                        <ion-label>{{sp.specialisationName}}</ion-label>
+                      </div>
+                    </ion-list>
+                  </ng-container>                  
+                </div>
+              </div>
+              <div class="spec__search">
+                <!-- <ion-chip> -->
+                  <ion-label>+ View More</ion-label>
+                <!-- </ion-chip> -->
+              </div>
+            </ion-card-content>
+          </ion-card>
+          <div class="spec__search">
+            <ion-button (click)="specArraySearch()">Find Clinics</ion-button>
+          </div> 
+        </div>
+      </div>
+      
+      <div class="plan">
+        <ion-card class="plan__card" style="background-color: #00b395;" (click)="docSuggestion()">
+          <ion-card-content>
+            <ion-card-title>Need help selecting your network of doctors?</ion-card-title>
+            <ion-card-subtitle style="color: #fff;">Don’t know who you want in your network? Don’t worry Swasth will help you pick your own personalised network. Just fill in your problems.</ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+        <div class="doc-suggestion" *ngIf="docSuggestionStatus">
+          <div class="doc-suggestion__vital">
+            <div class="doc-suggestion__vital-left">
+              <ion-label>Age:</ion-label>
+              <ion-input class="c-form__input"></ion-input>
+            </div>
+            <div class="doc-suggestion__vital-right">
+              <ion-label>Gender:</ion-label>
+              <select class="c-form__select">
+                <option disabled>--Select--</option>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Transgender</option>
+              </select>
+            </div>
+          </div>
+          <ion-label>Pre Existing Illness:</ion-label>
+          <ion-input class="c-form__input"></ion-input>
+          <div class="spec__search">
+            <ion-button>Get Suggestion</ion-button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="plan">
+        <ion-card class="plan__card" style="background-color: #919191;" (click)="docCode()">
+          <ion-card-content>
+            <ion-card-title style="color: #fff;">Have a code to join an existing network of doctors?</ion-card-title>
+            <ion-card-subtitle style="color: #fff;">Did your doctor give you a code to join their network? Enter it here and join their network NOW!</ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+        <div class="code" *ngIf="docCodeSelectStatus">
+          <div class="code__input">
+            <ion-label>Enter the Clinic code</ion-label>
+            <ion-input class="c-form__input" name="cliniccode" [(ngModel)]="cliniccode"></ion-input>
+          </div>
+          <div class="spec__search">
+            <ion-button (click)="searchCircleDocListByCcode()">Find Clinics</ion-button>
+          </div>
+        </div>
+      </div>
+    </ion-col>  
+  </ion-row>
+</ion-content>
